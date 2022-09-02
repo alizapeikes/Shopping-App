@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="SalesTracking2" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=DESKTOP-S1FUKE1\SQLEXPRESS19;Initial Catalog=SalesTracking2;Integrated Security=True" SettingsObjectName="SemesterProject.Properties.Settings" SettingsPropertyName="SalesTracking2ConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.ITEMS" Member="ITEMs">
+    <Type Name="ITEM">
+      <Column Name="ItemID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ItemName" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="Price" Type="System.Decimal" DbType="Decimal(8,2) NOT NULL" CanBeNull="false" />
+      <Association Name="ITEM_PURCHASE" Member="PURCHASEs" ThisKey="ItemID" OtherKey="ItemID" Type="PURCHASE" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PURCHASES" Member="PURCHASEs">
+    <Type Name="PURCHASE">
+      <Column Name="PurchaseID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ItemID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Total" Type="System.Decimal" DbType="Decimal(8,2) NOT NULL" CanBeNull="false" />
+      <Column Name="Date" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Association Name="ITEM_PURCHASE" Member="ITEM" ThisKey="ItemID" OtherKey="ItemID" Type="ITEM" IsForeignKey="true" />
+      <Association Name="USER_PURCHASE" Member="USER" ThisKey="UserID" OtherKey="UserID" Type="USER" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.USERS" Member="USERs">
+    <Type Name="USER">
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Username" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="UserPassword" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="CreditLimit" Type="System.Decimal" DbType="Decimal(8,2) NOT NULL" CanBeNull="false" />
+      <Column Name="CurrentBalance" Type="System.Decimal" DbType="Decimal(8,2) NOT NULL" CanBeNull="false" />
+      <Column Name="AvailableCredit" Type="System.Decimal" DbType="Decimal(9,2)" IsDbGenerated="true" CanBeNull="true" UpdateCheck="Never" />
+      <Association Name="USER_PURCHASE" Member="PURCHASEs" ThisKey="UserID" OtherKey="UserID" Type="PURCHASE" />
+    </Type>
+  </Table>
+</Database>
